@@ -228,7 +228,56 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void addOpponentChatLog(List<double> tmp, List<double> pre, List<double> slr){
     String text="hoge";
-    text="今の気温は"+tmp[0].toStringAsFixed(1)+"度だよ\nちなみに降水量は"+pre[0].toStringAsFixed(1)+"mmだね";
+    if(favRate<1.0){ //好感度低 気温をざっくり
+      if(tmp[0]<15){
+        text="今は...まあ寒いんじゃない？\n";
+      }else if(tmp[0]<=25){
+        text="今は...普通かな。\n";
+      }else{
+        text="今は...暑いかも...？\n";
+      }
+      if(tmp[1]<15){
+        text+="2時間後は...寒そう。";
+      }else if(tmp[1]<=25){
+        text+="2時間後は...まあ普通？";
+      }else{
+        text+="2時間後は...暑そう...。";
+      }
+    }else if(favRate<2.0){ //好感度普通 気温と降水量
+      text="今の気温は"+tmp[0].toStringAsFixed(1)+"度だよ。\nちなみに降水量は"+pre[0].toStringAsFixed(1)+"mmだね。\n";
+      if(tmp[0]<15){
+        text+="寒いね...。\n";
+      }else if(tmp[0]<=25){
+        text+="過ごしやすそう。\n";
+      }else{
+        text+="暑いなぁ...。\n";
+      }
+      text+="2時間後の気温は"+tmp[1].toStringAsFixed(1)+"度になるよ。\n降水量は"+pre[1].toStringAsFixed(1)+"mmらしい。\n";
+      if(pre[1]==0){
+        text+="傘は要らなそうだね。";
+      }else if(pre[1]<=20){
+        text+="傘を忘れずに。";
+      }else{
+        text+="傘があっても濡れちゃいそうだね...。";
+      }
+    }else{ //好感度高 気温と降水量と日射量
+      text="今の気温は"+tmp[0].toStringAsFixed(1)+"度だよ！\nちなみに降水量は"+pre[0].toStringAsFixed(1)+"mmなんだって！\n日射量は"+slr[0].toStringAsFixed(1)+"kW/m2みたい！\n";
+      if(slr[0]<=0.2){
+        text+="お日様は見えないね...。\n";
+      }else if(slr[0]<0.9){
+        text+="日差しは気にならなそう！\n";
+      }else{
+        text+="文句なしの快晴だね！！！\n";
+      }
+      text+="2時間後の気温は"+tmp[1].toStringAsFixed(1)+"度になるみたい！\n降水量は"+pre[1].toStringAsFixed(1)+"mmになると思う！\n日射量は"+slr[1].toStringAsFixed(1)+"kW/m2になる気がするな！\n";
+      if(pre[1]==0){
+        text+="やっぱり私は晴れが好き！";
+      }else if(pre[1]<=20){
+        text+="傘を忘れないでね！私は貸してあげられないよ！";
+      }else{
+        text+="雨も強いし、家で一緒にお昼寝しようよ！";
+      }
+    }
 
     ChatLog chatLog = ChatLog(
       id: chatSize,

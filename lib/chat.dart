@@ -27,17 +27,41 @@ class _Chat extends State<Chat> {
   );
 
   final List<Widget> _favIcons = [
-    const Text(
-      "☹",
-      style: TextStyle(fontSize: 50),
+    Container(
+      width: 90.0,
+      height: 90.0,
+      decoration: const BoxDecoration(
+        color: Colors.grey, // アイコンの背景色
+        shape: BoxShape.circle, // 円形切り抜き
+        image: DecorationImage(
+            fit: BoxFit.fill,
+            image: AssetImage("images/rating0.png")
+        ),
+      ),
     ),
-    const Text(
-      "😐",
-      style: TextStyle(fontSize: 50),
+    Container(
+      width: 90.0,
+      height: 90.0,
+      decoration: const BoxDecoration(
+          color: Colors.lightGreen, // アイコンの背景色
+          shape: BoxShape.circle, // 円形切り抜き
+          image: DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage("images/rating1.png")
+          ),
+      ),
     ),
-    const Text(
-      "😊",
-      style: TextStyle(fontSize: 50),
+    Container(
+      width: 90.0,
+      height: 90.0,
+      decoration: const BoxDecoration(
+        color: Colors.yellow, // アイコンの背景色
+        shape: BoxShape.circle, // 円形切り抜き
+        image: DecorationImage(
+            fit: BoxFit.fill,
+            image: AssetImage("images/rating2.png")
+        ),
+      ),
     ),
   ];
 
