@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class OtenkiAppbar extends StatelessWidget with PreferredSizeWidget {
   OtenkiAppbar({Key? key}) : super(key: key);
 
-  double height = 150;
+  double height = 178;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,11 @@ class OtenkiAppbar extends StatelessWidget with PreferredSizeWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Image.asset('images/teresakunn.png'),
+              Container(
+                width: height,
+                height: height,
+                child: Image.asset('images/teresakunn.png', fit: BoxFit.contain),
+              ),
               SizedBox(
                 width: 150,
                 height: height,
