@@ -22,13 +22,13 @@ class OtenkiAppbar extends StatefulWidget with PreferredSizeWidget {
 }
 
 class _OtenkiAppbar extends State<OtenkiAppbar> {
-  double height = 178;
+  double height = 182;
 
   final List<List<Widget>> _favIcons = [
     [
       Container(
-        width: 178,
-        height: 178,
+        width: 182,
+        height: 182,
         decoration: const BoxDecoration(
           color: Colors.grey, // アイコンの背景色
           shape: BoxShape.rectangle,
@@ -39,8 +39,8 @@ class _OtenkiAppbar extends State<OtenkiAppbar> {
         ),
       ),
       Container(
-        width: 178,
-        height: 178,
+        width: 182,
+        height: 182,
         decoration: const BoxDecoration(
           color: Colors.grey, // アイコンの背景色
           shape: BoxShape.rectangle,
@@ -51,8 +51,8 @@ class _OtenkiAppbar extends State<OtenkiAppbar> {
         ),
       ),
       Container(
-        width: 178,
-        height: 178,
+        width: 182,
+        height: 182,
         decoration: const BoxDecoration(
           color: Colors.grey, // アイコンの背景色
           shape: BoxShape.rectangle,
@@ -63,8 +63,8 @@ class _OtenkiAppbar extends State<OtenkiAppbar> {
         ),
       ),
       Container(
-        width: 178,
-        height: 178,
+        width: 182,
+        height: 182,
         decoration: const BoxDecoration(
           color: Colors.grey, // アイコンの背景色
           shape: BoxShape.rectangle,
@@ -77,8 +77,8 @@ class _OtenkiAppbar extends State<OtenkiAppbar> {
     ],
     [
       Container(
-        width: 178,
-        height: 178,
+        width: 182,
+        height: 182,
         decoration: const BoxDecoration(
           color: Colors.green, // アイコンの背景色
           shape: BoxShape.rectangle,
@@ -89,8 +89,8 @@ class _OtenkiAppbar extends State<OtenkiAppbar> {
         ),
       ),
       Container(
-        width: 178,
-        height: 178,
+        width: 182,
+        height: 182,
         decoration: const BoxDecoration(
           color: Colors.green, // アイコンの背景色
           shape: BoxShape.rectangle,
@@ -101,8 +101,8 @@ class _OtenkiAppbar extends State<OtenkiAppbar> {
         ),
       ),
       Container(
-        width: 178,
-        height: 178,
+        width: 182,
+        height: 182,
         decoration: const BoxDecoration(
           color: Colors.green, // アイコンの背景色
           shape: BoxShape.rectangle,
@@ -113,8 +113,8 @@ class _OtenkiAppbar extends State<OtenkiAppbar> {
         ),
       ),
       Container(
-        width: 178,
-        height: 178,
+        width: 182,
+        height: 182,
         decoration: const BoxDecoration(
           color: Colors.green, // アイコンの背景色
           shape: BoxShape.rectangle,
@@ -127,8 +127,8 @@ class _OtenkiAppbar extends State<OtenkiAppbar> {
     ],
     [
       Container(
-        width: 178,
-        height: 178,
+        width: 182,
+        height: 182,
         decoration: const BoxDecoration(
           color: Colors.yellow, // アイコンの背景色
           shape: BoxShape.rectangle,
@@ -139,8 +139,8 @@ class _OtenkiAppbar extends State<OtenkiAppbar> {
         ),
       ),
       Container(
-        width: 178,
-        height: 178,
+        width: 182,
+        height: 182,
         decoration: const BoxDecoration(
           color: Colors.yellow, // アイコンの背景色
           shape: BoxShape.rectangle,
@@ -151,8 +151,8 @@ class _OtenkiAppbar extends State<OtenkiAppbar> {
         ),
       ),
       Container(
-        width: 178,
-        height: 178,
+        width: 182,
+        height: 182,
         decoration: const BoxDecoration(
           color: Colors.yellow, // アイコンの背景色
           shape: BoxShape.rectangle,
@@ -163,8 +163,8 @@ class _OtenkiAppbar extends State<OtenkiAppbar> {
         ),
       ),
       Container(
-        width: 178,
-        height: 178,
+        width: 182,
+        height: 182,
         decoration: const BoxDecoration(
           color: Colors.yellow, // アイコンの背景色
           shape: BoxShape.rectangle,

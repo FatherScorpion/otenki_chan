@@ -26,7 +26,6 @@ class _Footer extends State<Footer> {
             height: 60,
             child: Container(
               decoration: BoxDecoration(color: Colors.white),
-              margin: EdgeInsets.all(5),
               child: TextField(
                 controller: controller,
                 style: TextStyle(fontSize: 30),
