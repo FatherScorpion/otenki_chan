@@ -44,22 +44,20 @@ class _MyHomePageState extends State<MyHomePage> {
       join(await getDatabasesPath(), 'chat_database.db'),
       onCreate: (db, version) {
         return db.execute(
-          "CREATE TABLE chat(id INTEGER PRIMARY KEY, isMine INTEGER, text TEXT, favRate INTEGER)",
+          "CREATE TABLE chat(id INTEGER PRIMARY KEY, isMine INTEGER, text TEXT, favRate REAL)",
         );
       },
       version: 1,
     );
   }
 
-
-
   late Database chatDb;
   int chatSize = 0;
-  int favRate = 1;
+  double favRate = 1;
 
-  void setFavRate(int rate) async {
+  void setFavRate(double rate) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt('favRate', rate);
+    prefs.setDouble('favRate', rate);
 
     setState(() {
       favRate = rate;
@@ -69,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initFav() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      favRate = prefs.getInt('favRate') ?? 1;
+      favRate = prefs.getDouble('favRate') ?? 1.0;
     });
     print('favRate:'+favRate.toString());
   }
@@ -99,6 +97,78 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<ChatLog> chatLogs = [];
 
+  void changeFavRate(Map<String, dynamic> san){
+    List<dynamic> emotionalPhrases = san['result']['emotional_phrase'];
+    // 天気を聞きまくったり意味不明な言葉を連投すると好感度が下がる
+    double favDiff = -0.15;
+
+    emotionalPhrases.forEach((e) {
+      String emotion = e['emotion'];
+      print(emotion);
+      //TODO ここで感情の場合分けをする！
+
+      switch(emotion) {
+        case '喜ぶ':
+          favDiff += 0.5;
+          break;
+        case '怒る':
+          favDiff -= 0.5;
+          break;
+        case '悲しい':
+          favDiff -= 0.1;
+          break;
+        case '不安':
+          favDiff -= 0.1;
+          break;
+        case '恥ずかしい':
+          favDiff -= 0.01;
+          break;
+        case '好ましい':
+          favDiff += 0.4;
+          break;
+        case '嫌':
+          favDiff -= 0.4;
+          break;
+        case '興奮':
+          //どっち方面に興奮してるかによる
+          favDiff *= 1.2;
+          break;
+        case '安心':
+          favDiff += 0.4;
+          break;
+        case '驚く':
+        //どっち方面に驚いてるかによる
+          favDiff *= 1.2;
+          break;
+        case '切ない':
+          favDiff -= 0.1;
+          break;
+        case '願望':
+          favDiff += 0.1;
+          break;
+        case 'P':
+          favDiff += 0.5;
+          break;
+        case 'N':
+          favDiff -= 0.5;
+          break;
+        case 'PN':
+          //変化なし
+          break;
+        default:
+          break;
+      }
+    });
+
+    double nextRate = favRate + favDiff;
+    if(nextRate <= -0.5) nextRate = -0.49;
+    if(nextRate >= 2.5) nextRate = 2.49;
+    print('favRate:'+nextRate.toString());
+    setState(() {
+      setFavRate(nextRate);
+    });
+  }
+
   void addChatLog(Map<String, dynamic> log) async {
     ChatLog chatLog = ChatLog(
       id: chatSize,
@@ -118,7 +188,8 @@ class _MyHomePageState extends State<MyHomePage> {
       chatLogs.insert(0, chatLog);
     });
 
-    sanCheck(log['text']);
+    Map<String, dynamic> san = await sanCheck(log['text']);
+    changeFavRate(san);
   }
 
   Future<String> getSanCheckToken() async{
@@ -135,7 +206,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  void sanCheck(String text) async{
+  Future<Map<String, dynamic>> sanCheck(String text) async{
     var token=await getSanCheckToken();
     print(token);
 
@@ -148,6 +219,8 @@ class _MyHomePageState extends State<MyHomePage> {
       final response=await http.post(_uri,body: requestUtf8, headers: {"content-type": "application/json","Authorization": "Bearer ${token}"});
       var data=utf8.decode(jsonDecode(response.body).toString().runes.toList());
       print(data);
+      Map<String, dynamic> info = json.decode(utf8.decode(response.bodyBytes));
+      return info;
     }catch(error){
       throw Exception(error.toString());
     }
@@ -155,7 +228,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void addOpponentChatLog(List<double> tmp, List<double> pre, List<double> slr){
     String text="hoge";
-    if(favRate<1.0){ //好感度低 気温をざっくり
+    if(favRate.round() == 0){ //好感度低 気温をざっくり
       if(tmp[0]<15){
         text="今は...まあ寒いんじゃない？\n";
       }else if(tmp[0]<=25){
@@ -170,7 +243,7 @@ class _MyHomePageState extends State<MyHomePage> {
       }else{
         text+="2時間後は...暑そう...。";
       }
-    }else if(favRate<2.0){ //好感度普通 気温と降水量
+    }else if(favRate.round() == 1){ //好感度普通 気温と降水量
       text="今の気温は"+tmp[0].toStringAsFixed(1)+"度だよ。\nちなみに降水量は"+pre[0].toStringAsFixed(1)+"mmだね。\n";
       if(tmp[0]<15){
         text+="寒いね...。\n";
@@ -210,7 +283,7 @@ class _MyHomePageState extends State<MyHomePage> {
       id: chatSize,
       isMine: 0,
       text:  text,
-      favRate: 1,
+      favRate: favRate,
     );
 
     chatDb.insert(
@@ -230,7 +303,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       chatLogs = [];
     });
-    setFavRate(1);
+    setFavRate(1.0);
     print('reset chatLog and favRate');
   }
 
@@ -268,7 +341,7 @@ class ChatLog {
   final int id;
   final int isMine;
   final String text;
-  final int favRate;
+  final double favRate;
 
   ChatLog({required this.id,required this.isMine,required this.text,required this.favRate});
 

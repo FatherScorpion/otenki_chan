@@ -40,7 +40,7 @@ class _OtenkiAppbar extends State<OtenkiAppbar> {
                 height: height,
                 child: ElevatedButton(
                   onPressed: () => {
-                    widget.addChatLog({'isMine': 1, 'text': '天気を教えて！', 'favRate': 1}),
+                    widget.addChatLog({'isMine': 1, 'text': '天気を教えて！', 'favRate': 1.0}),
                     onPushWeatherButton(widget.addOpponentChatLog),
                   },
                   style: ElevatedButton.styleFrom(
