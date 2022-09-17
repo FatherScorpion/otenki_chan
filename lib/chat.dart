@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class Chat extends StatefulWidget {
   final List<Map<String, dynamic>> chatLogs;
@@ -95,6 +96,21 @@ class _Chat extends State<Chat> {
         ],
       );
     }else{
+      if(log['text'] == ''){
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            _favIcons[log['favRate'].round()],
+            const SizedBox(width: 15),
+            Container(
+              child: LoadingAnimationWidget.staggeredDotsWave(
+                color: Colors.green,
+                size: 100,
+              ),
+            ),
+          ],
+        );
+      }
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

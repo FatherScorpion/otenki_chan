@@ -279,6 +279,18 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  void addGuruGuru(){
+    ChatLog chatLog = ChatLog(
+      id: chatSize,
+      isMine: 0,
+      text:  '',
+      favRate: favRate,
+    );
+    setState(() {
+      chatLogs.insert(0, chatLog);
+    });
+  }
+
   void addOpponentChatLog(List<double> tmp, List<double> pre, List<double> slr){
     String text="hoge";
     if(favRate.round() == 0){ //好感度低 気温をざっくり
@@ -347,6 +359,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     setState(() {
       chatSize++;
+      chatLogs.removeAt(0);
       chatLogs.insert(0, chatLog);
     });
   }
@@ -363,7 +376,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: OtenkiAppbar(addChatLog: addChatLog, addOpponentChatLog: addOpponentChatLog, reset: reset, favRate: favRate, emoType: emoType),
+      appBar: OtenkiAppbar(addChatLog: addChatLog, addOpponentChatLog: addOpponentChatLog, reset: reset, addGuruGuru: addGuruGuru, favRate: favRate, emoType: emoType),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

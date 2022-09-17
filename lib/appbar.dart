@@ -9,9 +9,10 @@ class OtenkiAppbar extends StatefulWidget with PreferredSizeWidget {
   final Function addChatLog;
   final Function addOpponentChatLog;
   final Function reset;
+  final Function addGuruGuru;
   final double favRate;
   final int emoType;
-  OtenkiAppbar({Key? key, required this.addChatLog, required this.addOpponentChatLog, required this.reset, required this.favRate, required this.emoType}) : super(key: key);
+  OtenkiAppbar({Key? key, required this.addChatLog, required this.addOpponentChatLog, required this.reset, required this.addGuruGuru, required this.favRate, required this.emoType}) : super(key: key);
 
   @override
   State<OtenkiAppbar> createState() => _OtenkiAppbar();
@@ -192,6 +193,7 @@ class _OtenkiAppbar extends State<OtenkiAppbar> {
                 child: ElevatedButton(
                   onPressed: () => {
                     widget.addChatLog({'isMine': 1, 'text': '天気を教えて！', 'favRate': 1.0}),
+                    widget.addGuruGuru(),
                     onPushWeatherButton(widget.addOpponentChatLog),
                   },
                   style: ElevatedButton.styleFrom(
