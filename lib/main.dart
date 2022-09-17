@@ -326,15 +326,15 @@ class _MyHomePageState extends State<MyHomePage> {
         text+="傘があっても濡れちゃいそうだね...。";
       }
     }else{ //好感度高 気温と降水量と日射量
-      text="今の気温は"+tmp[0].toStringAsFixed(1)+"度だよ！\nちなみに降水量は"+pre[0].toStringAsFixed(1)+"mmなんだって！\n日射量は"+slr[0].toStringAsFixed(1)+"kW/m2みたい！\n";
-      if(slr[0]<=0.2){
+      text="今の気温は"+tmp[0].toStringAsFixed(1)+"度だよ！\nちなみに降水量は"+pre[0].toStringAsFixed(1)+"mmなんだって！\n日射量は"+slr[0].toStringAsFixed(1)+"W/m2みたい！\n";
+      if(slr[0]<=200){
         text+="お日様は見えないね...。\n";
-      }else if(slr[0]<0.9){
+      }else if(slr[0]<900){
         text+="日差しは気にならなそう！\n";
       }else{
         text+="文句なしの快晴だね！！！\n";
       }
-      text+="2時間後の気温は"+tmp[1].toStringAsFixed(1)+"度になるみたい！\n降水量は"+pre[1].toStringAsFixed(1)+"mmになると思う！\n日射量は"+slr[1].toStringAsFixed(1)+"kW/m2になる気がするな！\n";
+      text+="2時間後の気温は"+tmp[1].toStringAsFixed(1)+"度になるみたい！\n降水量は"+pre[1].toStringAsFixed(1)+"mmになると思う！\n日射量は"+slr[1].toStringAsFixed(1)+"W/m2になる気がするな！\n";
       if(pre[1]==0){
         text+="やっぱり私は晴れが好き！";
       }else if(pre[1]<=20){

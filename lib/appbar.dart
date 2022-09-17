@@ -189,7 +189,7 @@ class _OtenkiAppbar extends State<OtenkiAppbar> {
               _favIcons[widget.favRate.round()][widget.emoType],
               SizedBox(
                 width: 150,
-                height: height,
+                height: height-15,
                 child: ElevatedButton(
                   onPressed: () => {
                     widget.addChatLog({'isMine': 1, 'text': '天気を教えて！', 'favRate': 1.0}),
@@ -199,9 +199,16 @@ class _OtenkiAppbar extends State<OtenkiAppbar> {
                   style: ElevatedButton.styleFrom(
                       elevation: 0,
                       primary: Colors.greenAccent,
-                      onPrimary: Colors.white
+                      onPrimary: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)
+                      ),
+                      side: BorderSide(
+                        color: Colors.lightGreenAccent,
+                        width: 3
+                      )
                   ),
-                  child: const Text('天気\n教えて！', style: TextStyle(fontSize: 29, fontWeight: FontWeight.bold)),
+                  child: const Text('天気を\n聞く', style: TextStyle(fontSize: 29, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
                 ),
               ),
               Container(
