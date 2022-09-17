@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'chat.dart';
 
 class Footer extends StatefulWidget {
-  const Footer();
+  final Function addChatLog;
+  Footer({Key? key, required this.addChatLog}) : super(key: key);
 
   @override
   _Footer createState() => _Footer();
 }
 
-class _Footer extends State {
+class _Footer extends State<Footer> {
   final controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,10 @@ class _Footer extends State {
             child: IconButton(
               icon: Icon(Icons.arrow_forward_rounded,color: Colors.white,
                   size: 50),
-              onPressed: (){controller.text="push!";},
+              onPressed: () => {
+                widget.addChatLog(controller.text),
+                controller.text="",
+              },
             ),
           )
         ],
