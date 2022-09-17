@@ -12,7 +12,6 @@ class OtenkiAppbar extends StatelessWidget with PreferredSizeWidget {
       children: [
         Container(
           decoration: const BoxDecoration(color: Colors.cyanAccent),
-          height: height,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -57,5 +56,5 @@ class OtenkiAppbar extends StatelessWidget with PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(150);
+  Size get preferredSize => const Size.fromHeight(160);
 }

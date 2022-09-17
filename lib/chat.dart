@@ -1,43 +1,43 @@
 import 'package:flutter/material.dart';
 
 class Chat extends StatefulWidget {
-  const Chat();
+  final List<Map<String, dynamic>> chatLogs;
+  Chat({Key? key, required this.chatLogs}) : super(key: key);
 
   @override
   _Chat createState() => _Chat();
 }
 
-class _Chat extends State {
-  List<Map<String, dynamic>> chatLogs = [
-    {'isMine': true, 'text': 'hogeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'},
-    {'isMine': true, 'text': 'fuga'},
-    {'isMine': false, 'text': 'nya-n'},
-  ];
-
+class _Chat extends State<Chat> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
+        itemCount: widget.chatLogs.length,
         reverse: true,
         itemBuilder: (BuildContext context, int index) {
-          if(index >= chatLogs.length){
-            chatLogs.addAll([
-              {'isMine': true, 'text': 'hoge'},
-              {'isMine': true, 'text': 'fuga'},
-              {'isMine': false, 'text': 'nya-n'},
-            ]);
-          }
-          return _messageItem(chatLogs[index]);
+          return _messageItem(widget.chatLogs[index]);
         },
       ),
     );
   }
 
-  final _shadowProp = [
-    const BoxShadow(
-      color: Color(0x80000000),
-      offset: Offset(0,2),
-      blurRadius: 2,
+  final _style = const TextStyle(
+    fontSize: 20,
+  );
+
+  final List<Widget> _favIcons = [
+    const Text(
+      "☹",
+      style: TextStyle(fontSize: 50),
+    ),
+    const Text(
+      "😐",
+      style: TextStyle(fontSize: 50),
+    ),
+    const Text(
+      "😊",
+      style: TextStyle(fontSize: 50),
     ),
   ];
 
@@ -64,9 +64,7 @@ class _Chat extends State {
               ),
               child: Text(
                 log['text'],
-                style: const TextStyle(
-                  fontSize: 20,
-                ),
+                style: _style,
               ),
             ),
           ),
@@ -76,6 +74,7 @@ class _Chat extends State {
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          _favIcons[log['favRate']],
           Flexible(
             child: Container(
               margin: const EdgeInsets.all(5),
@@ -94,9 +93,7 @@ class _Chat extends State {
               ),
               child: Text(
                 log['text'],
-                style: const TextStyle(
-                  fontSize: 20,
-                ),
+                style: _style,
               ),
             ),
           ),

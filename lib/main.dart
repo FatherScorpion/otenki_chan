@@ -34,6 +34,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<Map<String, dynamic>> chatLogs = [
+    {'isMine': true, 'text': 'hogeeee'},
+    {'isMine': true, 'text': 'fuga'},
+    {'isMine': false, 'text': 'nyaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-n', 'favRate': 1},
+  ];
+  void addChatLog(String text){
+    setState(() {
+      chatLogs.insert(0,{'isMine': true, 'text': text});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,8 +53,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Chat(),
-            Footer(),
+            Chat(chatLogs: chatLogs),
+            Footer(addChatLog: addChatLog),
           ],
         ),
       ),
