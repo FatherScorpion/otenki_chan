@@ -164,18 +164,18 @@ class _MyHomePageState extends State<MyHomePage> {
         text="今は...暑いかも...？\n";
       }
       if(tmp[1]<15){
-        text+="2時間後は...寒そうかも。";
+        text+="2時間後は...寒そう。";
       }else if(tmp[1]<=25){
-        text+="2時間後は...まあ普通じゃない？";
+        text+="2時間後は...まあ普通？";
       }else{
-        text+="2時間後は...暑いんじゃない？";
+        text+="2時間後は...暑そう...。";
       }
     }else if(favRate<2.0){ //好感度普通 気温と降水量
       text="今の気温は"+tmp[0].toStringAsFixed(1)+"度だよ。\nちなみに降水量は"+pre[0].toStringAsFixed(1)+"mmだね。\n";
       if(tmp[0]<15){
         text+="寒いね...。\n";
       }else if(tmp[0]<=25){
-        text+="過ごしやすそうだね。\n";
+        text+="過ごしやすそう。\n";
       }else{
         text+="暑いなぁ...。\n";
       }
@@ -198,7 +198,7 @@ class _MyHomePageState extends State<MyHomePage> {
       }
       text+="2時間後の気温は"+tmp[1].toStringAsFixed(1)+"度になるみたい！\n降水量は"+pre[1].toStringAsFixed(1)+"mmになると思う！\n日射量は"+slr[1].toStringAsFixed(1)+"kW/m2になる気がするな！\n";
       if(pre[1]==0){
-        text+="やっぱり私は晴れが好きかな！";
+        text+="やっぱり私は晴れが好き！";
       }else if(pre[1]<=20){
         text+="傘を忘れないでね！私は貸してあげられないよ！";
       }else{
