@@ -4,6 +4,7 @@ import 'chat.dart';
 import 'appbar.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());
@@ -48,8 +49,28 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+
+
   late Database chatDb;
   int chatSize = 0;
+  int favRate = 1;
+
+  void setFavRate(int rate) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('favRate', rate);
+
+    setState(() {
+      favRate = rate;
+    });
+  }
+
+  void initFav() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      favRate = prefs.getInt('favRate') ?? 1;
+    });
+    print('favRate:'+favRate.toString());
+  }
 
   void initDb() async {
     chatDb = await chatDatabase();
@@ -71,6 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     initDb();
+    initFav();
   }
 
   List<ChatLog> chatLogs = [];
