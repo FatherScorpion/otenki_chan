@@ -8,7 +8,8 @@ import 'package:geolocator/geolocator.dart';
 class OtenkiAppbar extends StatefulWidget with PreferredSizeWidget {
   final Function addChatLog;
   final Function addOpponentChatLog;
-  OtenkiAppbar({Key? key, required this.addChatLog, required this.addOpponentChatLog}) : super(key: key);
+  final Function reset;
+  OtenkiAppbar({Key? key, required this.addChatLog, required this.addOpponentChatLog, required this.reset}) : super(key: key);
 
   @override
   State<OtenkiAppbar> createState() => _OtenkiAppbar();
@@ -55,7 +56,7 @@ class _OtenkiAppbar extends State<OtenkiAppbar> {
                 color: Colors.redAccent,
                 child: IconButton(
                   color: Colors.white,
-                  onPressed: () => {},
+                  onPressed: () => {widget.reset()},
                   icon: const Icon(Icons.delete),
                   iconSize: 75,
                 ),

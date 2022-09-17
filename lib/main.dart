@@ -140,10 +140,19 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void reset() async {
+    await chatDb.delete('chat');
+    setState(() {
+      chatLogs = [];
+    });
+    setFavRate(1);
+    print('reset chatLog and favRate');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: OtenkiAppbar(addChatLog: addChatLog, addOpponentChatLog: addOpponentChatLog),
+      appBar: OtenkiAppbar(addChatLog: addChatLog, addOpponentChatLog: addOpponentChatLog, reset: reset),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
