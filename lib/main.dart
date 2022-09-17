@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: OtenkiAppbar(),
+      appBar: OtenkiAppbar(addChatLog: addChatLog),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

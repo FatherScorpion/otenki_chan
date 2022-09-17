@@ -6,7 +6,8 @@ import 'package:async/async.dart';
 import 'package:geolocator/geolocator.dart';
 
 class OtenkiAppbar extends StatelessWidget with PreferredSizeWidget {
-  OtenkiAppbar({Key? key}) : super(key: key);
+  final Function addChatLog;
+  OtenkiAppbar({Key? key, required this.addChatLog}) : super(key: key);
 
   double height = 178;
 
@@ -29,7 +30,10 @@ class OtenkiAppbar extends StatelessWidget with PreferredSizeWidget {
                 width: 150,
                 height: height,
                 child: ElevatedButton(
-                  onPressed: () => {onPushWeatherButton()},
+                  onPressed: () => {
+                    addChatLog('天気を教えて！'),
+                    onPushWeatherButton(),
+                  },
                   style: ElevatedButton.styleFrom(
                       elevation: 0,
                       primary: Colors.greenAccent,

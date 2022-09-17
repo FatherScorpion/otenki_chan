@@ -40,7 +40,7 @@ class _Footer extends State<Footer> {
                   size: 50),
               onPressed: () => {
                 widget.addChatLog(controller.text),
-                controller.text="push!",
+                controller.text="",
               },
             ),
           )
