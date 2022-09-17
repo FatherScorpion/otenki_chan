@@ -39,7 +39,7 @@ class _Footer extends State<Footer> {
               icon: Icon(Icons.arrow_forward_rounded,color: Colors.white,
                   size: 50),
               onPressed: () => {
-                widget.addChatLog(controller.text),
+                widget.addChatLog({'isMine': 1, 'text': controller.text, 'favRate': 1}),
                 controller.text="",
               },
             ),
