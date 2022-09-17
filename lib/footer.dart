@@ -23,10 +23,10 @@ class _Footer extends State<Footer> {
         children: [
           SizedBox(
             width: 300,
-            height: 40,
+            height: 60,
             child: Container(
               decoration: BoxDecoration(color: Colors.white),
-              margin: EdgeInsets.all(0),
+              margin: EdgeInsets.all(5),
               child: TextField(
                 controller: controller,
                 style: TextStyle(fontSize: 30),
