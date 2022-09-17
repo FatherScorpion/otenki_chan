@@ -9,7 +9,9 @@ class OtenkiAppbar extends StatefulWidget with PreferredSizeWidget {
   final Function addChatLog;
   final Function addOpponentChatLog;
   final Function reset;
-  OtenkiAppbar({Key? key, required this.addChatLog, required this.addOpponentChatLog, required this.reset}) : super(key: key);
+  final double favRate;
+  final int emoType;
+  OtenkiAppbar({Key? key, required this.addChatLog, required this.addOpponentChatLog, required this.reset, required this.favRate, required this.emoType}) : super(key: key);
 
   @override
   State<OtenkiAppbar> createState() => _OtenkiAppbar();
@@ -21,6 +23,159 @@ class OtenkiAppbar extends StatefulWidget with PreferredSizeWidget {
 class _OtenkiAppbar extends State<OtenkiAppbar> {
   double height = 178;
 
+  final List<List<Widget>> _favIcons = [
+    [
+      Container(
+        width: 178,
+        height: 178,
+        decoration: const BoxDecoration(
+          color: Colors.grey, // アイコンの背景色
+          shape: BoxShape.rectangle,
+          image: DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage("images/rating0.png")
+          ),
+        ),
+      ),
+      Container(
+        width: 178,
+        height: 178,
+        decoration: const BoxDecoration(
+          color: Colors.grey, // アイコンの背景色
+          shape: BoxShape.rectangle,
+          image: DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage("images/rating0_comfort.png")
+          ),
+        ),
+      ),
+      Container(
+        width: 178,
+        height: 178,
+        decoration: const BoxDecoration(
+          color: Colors.grey, // アイコンの背景色
+          shape: BoxShape.rectangle,
+          image: DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage("images/rating0_happy.png")
+          ),
+        ),
+      ),
+      Container(
+        width: 178,
+        height: 178,
+        decoration: const BoxDecoration(
+          color: Colors.grey, // アイコンの背景色
+          shape: BoxShape.rectangle,
+          image: DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage("images/rating0_surprised.png")
+          ),
+        ),
+      ),
+    ],
+    [
+      Container(
+        width: 178,
+        height: 178,
+        decoration: const BoxDecoration(
+          color: Colors.green, // アイコンの背景色
+          shape: BoxShape.rectangle,
+          image: DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage("images/rating1.png")
+          ),
+        ),
+      ),
+      Container(
+        width: 178,
+        height: 178,
+        decoration: const BoxDecoration(
+          color: Colors.green, // アイコンの背景色
+          shape: BoxShape.rectangle,
+          image: DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage("images/rating1_comfort.png")
+          ),
+        ),
+      ),
+      Container(
+        width: 178,
+        height: 178,
+        decoration: const BoxDecoration(
+          color: Colors.green, // アイコンの背景色
+          shape: BoxShape.rectangle,
+          image: DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage("images/rating1_happy.png")
+          ),
+        ),
+      ),
+      Container(
+        width: 178,
+        height: 178,
+        decoration: const BoxDecoration(
+          color: Colors.green, // アイコンの背景色
+          shape: BoxShape.rectangle,
+          image: DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage("images/rating1_surprised.png")
+          ),
+        ),
+      ),
+    ],
+    [
+      Container(
+        width: 178,
+        height: 178,
+        decoration: const BoxDecoration(
+          color: Colors.yellow, // アイコンの背景色
+          shape: BoxShape.rectangle,
+          image: DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage("images/rating2.png")
+          ),
+        ),
+      ),
+      Container(
+        width: 178,
+        height: 178,
+        decoration: const BoxDecoration(
+          color: Colors.yellow, // アイコンの背景色
+          shape: BoxShape.rectangle,
+          image: DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage("images/rating2_comfort.png")
+          ),
+        ),
+      ),
+      Container(
+        width: 178,
+        height: 178,
+        decoration: const BoxDecoration(
+          color: Colors.yellow, // アイコンの背景色
+          shape: BoxShape.rectangle,
+          image: DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage("images/rating2_happy.png")
+          ),
+        ),
+      ),
+      Container(
+        width: 178,
+        height: 178,
+        decoration: const BoxDecoration(
+          color: Colors.yellow, // アイコンの背景色
+          shape: BoxShape.rectangle,
+          image: DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage("images/rating2_surprised.png")
+          ),
+        ),
+      ),
+    ],
+  ];
+
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -30,11 +185,7 @@ class _OtenkiAppbar extends State<OtenkiAppbar> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Container(
-                width: height,
-                height: height,
-                child: Image.asset('images/teresakunn.png', fit: BoxFit.contain),
-              ),
+              _favIcons[widget.favRate.round()][widget.emoType],
               SizedBox(
                 width: 150,
                 height: height,

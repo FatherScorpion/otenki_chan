@@ -54,6 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
   late Database chatDb;
   int chatSize = 0;
   double favRate = 1;
+  int emoType = 0; // 直前の発言に対する反応
 
   void setFavRate(double rate) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -98,9 +99,12 @@ class _MyHomePageState extends State<MyHomePage> {
   List<ChatLog> chatLogs = [];
 
   void changeFavRate(Map<String, dynamic> san){
-    List<dynamic> emotionalPhrases = san['result']['emotional_phrase'];
+    List<dynamic> emotionalPhrases = san['result']['emotional_phrase'] ?? [];
     // 天気を聞きまくったり意味不明な言葉を連投すると好感度が下がる
     double favDiff = -0.15;
+    setState(() {
+      emoType = 0;
+    });
 
     emotionalPhrases.forEach((e) {
       String emotion = e['emotion'];
@@ -110,52 +114,100 @@ class _MyHomePageState extends State<MyHomePage> {
       switch(emotion) {
         case '喜ぶ':
           favDiff += 0.5;
+          setState(() {
+            emoType = 2;
+          });
           break;
         case '怒る':
           favDiff -= 0.5;
+          setState(() {
+            emoType = 3;
+          });
           break;
         case '悲しい':
           favDiff -= 0.1;
+          setState(() {
+            emoType = 1;
+          });
           break;
         case '不安':
           favDiff -= 0.1;
+          setState(() {
+            emoType = 1;
+          });
           break;
         case '恥ずかしい':
           favDiff -= 0.01;
+          setState(() {
+            emoType = 1;
+          });
           break;
         case '好ましい':
           favDiff += 0.4;
+          setState(() {
+            emoType = 2;
+          });
           break;
         case '嫌':
           favDiff -= 0.4;
+          setState(() {
+            emoType = 3;
+          });
           break;
         case '興奮':
           //どっち方面に興奮してるかによる
           favDiff *= 1.2;
+          setState(() {
+            emoType = 3;
+          });
           break;
         case '安心':
           favDiff += 0.4;
+          setState(() {
+            emoType = 2;
+          });
           break;
         case '驚く':
         //どっち方面に驚いてるかによる
           favDiff *= 1.2;
+          setState(() {
+            emoType = 3;
+          });
           break;
         case '切ない':
           favDiff -= 0.1;
+          setState(() {
+            emoType = 1;
+          });
           break;
         case '願望':
           favDiff += 0.1;
+          setState(() {
+            emoType = 3;
+          });
           break;
         case 'P':
           favDiff += 0.5;
+          setState(() {
+            emoType = 2;
+          });
           break;
         case 'N':
           favDiff -= 0.5;
+          setState(() {
+            emoType = 3;
+          });
           break;
         case 'PN':
           //変化なし
+          setState(() {
+            emoType = 0;
+          });
           break;
         default:
+          setState(() {
+            emoType = 0;
+          });
           break;
       }
     });
@@ -164,6 +216,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if(nextRate <= -0.5) nextRate = -0.49;
     if(nextRate >= 2.5) nextRate = 2.49;
     print('favRate:'+nextRate.toString());
+    print('emoType:'+emoType.toString());
     setState(() {
       setFavRate(nextRate);
     });
@@ -310,7 +363,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: OtenkiAppbar(addChatLog: addChatLog, addOpponentChatLog: addOpponentChatLog, reset: reset),
+      appBar: OtenkiAppbar(addChatLog: addChatLog, addOpponentChatLog: addOpponentChatLog, reset: reset, favRate: favRate, emoType: emoType),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
