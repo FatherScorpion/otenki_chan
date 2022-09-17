@@ -31,7 +31,7 @@ class OtenkiAppbar extends StatelessWidget with PreferredSizeWidget {
                 height: height,
                 child: ElevatedButton(
                   onPressed: () => {
-                    addChatLog('天気を教えて！'),
+                    addChatLog({'isMine': 1, 'text': '天気を教えて！', 'favRate': -1}),
                     onPushWeatherButton(),
                   },
                   style: ElevatedButton.styleFrom(

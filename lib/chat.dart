@@ -42,7 +42,7 @@ class _Chat extends State<Chat> {
   ];
 
   Widget _messageItem(Map<String,dynamic> log){
-    if(log['isMine']){
+    if(log['isMine'] == 1){
       return Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
