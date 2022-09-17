@@ -5,6 +5,8 @@ import 'appbar.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 void main() {
   runApp(const MyApp());
@@ -115,6 +117,40 @@ class _MyHomePageState extends State<MyHomePage> {
       chatSize++;
       chatLogs.insert(0, chatLog);
     });
+
+    sanCheck(log['text']);
+  }
+
+  Future<String> getSanCheckToken() async{
+    var serverURL="https://api.ce-cotoha.com/v1/oauth/accesstokens";
+    Uri _uri=Uri.parse(serverURL);
+    String query= '{"grantType": "client_credentials","clientId": "MxrAblUNeiaq1SOK1pJDFjFxvDKLB0pO","clientSecret": "kwsGBzDgoxXbH6uE"}';
+    final requestUtf8 = utf8.encode(query);
+
+    try{
+      final response=await http.post(_uri,body: requestUtf8, headers: {"content-type": "application/json"});
+      return jsonDecode(response.body)['access_token'] as String;
+    }catch(error){
+      throw Exception(error.toString());
+    }
+  }
+
+  void sanCheck(String text) async{
+    var token=await getSanCheckToken();
+    print(token);
+
+    var serverURL="https://api.ce-cotoha.com/api/dev/nlp/v1/sentiment";
+    Uri _uri=Uri.parse(serverURL);
+    String query= '{"sentence": "${text}"}';
+    final requestUtf8 = utf8.encode(query);
+
+    try{
+      final response=await http.post(_uri,body: requestUtf8, headers: {"content-type": "application/json","Authorization": "Bearer ${token}"});
+      var data=utf8.decode(jsonDecode(response.body).toString().runes.toList());
+      print(data);
+    }catch(error){
+      throw Exception(error.toString());
+    }
   }
 
   void addOpponentChatLog(List<double> tmp, List<double> pre, List<double> slr){
