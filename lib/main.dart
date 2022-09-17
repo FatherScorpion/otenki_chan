@@ -87,6 +87,9 @@ class _MyHomePageState extends State<MyHomePage> {
             favRate: maps[i]['favRate']
         );
       });
+      if(chatSize==0){
+        addOpponentChatLogByText("こんにちは、お天気ちゃんだよ。\n天気予報には自信があるんだ、いつでも聞いてね！\nそれ以外にも色々話しかけてくれると嬉しいな...！");
+      }
     });
   }
 
@@ -291,22 +294,42 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void addOpponentChatLogByText(String text){
+    ChatLog chatLog = ChatLog(
+      id: chatSize,
+      isMine: 0,
+      text:  text,
+      favRate: favRate,
+    );
+
+    chatDb.insert(
+      'chat',
+      chatLog.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+
+    setState(() {
+      chatSize++;
+      chatLogs.insert(0, chatLog);
+    });
+  }
+
   void addOpponentChatLog(List<double> tmp, List<double> pre, List<double> slr){
     String text="hoge";
     if(favRate.round() == 0){ //好感度低 気温をざっくり
       if(tmp[0]<15){
-        text="今は...まあ寒いんじゃない？\n";
+        text="今の気温は...寒いですね。\n";
       }else if(tmp[0]<=25){
-        text="今は...普通かな。\n";
+        text="今の気温は...普通ですね。\n";
       }else{
-        text="今は...暑いかも...？\n";
+        text="今の気温は...暑いですね。\n";
       }
       if(tmp[1]<15){
-        text+="2時間後は...寒そう。";
+        text+="2時間後は...寒そうですね。";
       }else if(tmp[1]<=25){
-        text+="2時間後は...まあ普通？";
+        text+="2時間後は...まあ普通じゃないでしょうか。";
       }else{
-        text+="2時間後は...暑そう...。";
+        text+="2時間後は...暑そうですね。";
       }
     }else if(favRate.round() == 1){ //好感度普通 気温と降水量
       text="今の気温は"+tmp[0].toStringAsFixed(1)+"度だよ。\nちなみに降水量は"+pre[0].toStringAsFixed(1)+"mmだね。\n";
@@ -371,6 +394,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     setFavRate(1.0);
     print('reset chatLog and favRate');
+    addOpponentChatLogByText("こんにちは、お天気ちゃんだよ。\n天気予報には自信があるんだ、いつでも聞いてね！\nそれ以外にも色々話しかけてくれると嬉しいな...！");
   }
 
   @override
