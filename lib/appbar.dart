@@ -5,13 +5,21 @@ import 'package:http/http.dart' as http;
 import 'package:async/async.dart';
 import 'package:geolocator/geolocator.dart';
 
-class OtenkiAppbar extends StatelessWidget with PreferredSizeWidget {
+class OtenkiAppbar extends StatefulWidget with PreferredSizeWidget {
   final Function addChatLog;
-  OtenkiAppbar({Key? key, required this.addChatLog}) : super(key: key);
-
-  double height = 178;
+  final Function addOpponentChatLog;
+  OtenkiAppbar({Key? key, required this.addChatLog, required this.addOpponentChatLog}) : super(key: key);
 
   @override
+  State<OtenkiAppbar> createState() => _OtenkiAppbar();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(160);
+}
+
+class _OtenkiAppbar extends State<OtenkiAppbar> {
+  double height = 178;
+
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -31,8 +39,8 @@ class OtenkiAppbar extends StatelessWidget with PreferredSizeWidget {
                 height: height,
                 child: ElevatedButton(
                   onPressed: () => {
-                    addChatLog({'isMine': 1, 'text': '天気を教えて！', 'favRate': -1}),
-                    onPushWeatherButton(),
+                    widget.addChatLog({'isMine': 1, 'text': '天気を教えて！', 'favRate': 1}),
+                    onPushWeatherButton(widget.addOpponentChatLog),
                   },
                   style: ElevatedButton.styleFrom(
                       elevation: 0,
@@ -63,20 +71,15 @@ class OtenkiAppbar extends StatelessWidget with PreferredSizeWidget {
       ],
     );
   }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(160);
 }
 
-void onPushWeatherButton() async{
-  Future<String> token=getWeatherToken();
+void onPushWeatherButton(Function addOpponentChatLog) async{
+  var token=await getWeatherToken();
   //String token="hoge";
-  token.then((value) => {
-    print(value),
-    getTemperatureData(value),
-    getPrecipitationData(value),
-    getSolarData(value)
-  });
+  var tmp=await getTemperatureData(token);
+  var pre=await getPrecipitationData(token);
+  var slr=await getSolarData(token);
+  addOpponentChatLog(tmp,pre,slr);
 }
 
 Future<String> getWeatherToken() async{
@@ -93,7 +96,7 @@ Future<String> getWeatherToken() async{
   }
 }
 
-void getTemperatureData(String token) async{
+Future<List<double>> getTemperatureData(String token) async{
   double lat,lng;
   Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
   lat=position.latitude;
@@ -106,14 +109,16 @@ void getTemperatureData(String token) async{
 
   try{
     final response=await http.post(_uri,body: requestUtf8, headers: {"content-type": "application/json", "Authorization": "Bearer ${token}"});
-    print(response.body);
-    //気温をこねこね
+    Map<String,dynamic> map=jsonDecode(response.body);
+    final ret=<double>[map['data'][6]['temperature'],map['data'][10]['temperature']];
+    print(ret);
+    return ret;
   }catch(error){
     throw Exception(error.toString());
   }
 }
 
-void getPrecipitationData(String token) async{
+Future<List<double>> getPrecipitationData(String token) async{
   double lat,lng;
   Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
   lat=position.latitude;
@@ -126,14 +131,16 @@ void getPrecipitationData(String token) async{
 
   try{
     final response=await http.post(_uri,body: requestUtf8, headers: {"content-type": "application/json", "Authorization": "Bearer ${token}"});
-    print(response.body);
-    //降水量をこねこね
+    Map<String,dynamic> map=jsonDecode(response.body);
+    final ret=<double>[map['data'][6]['precipition'],map['data'][10]['precipition']];
+    print(ret);
+    return ret;
   }catch(error){
     throw Exception(error.toString());
   }
 }
 
-void getSolarData(String token) async{
+Future<List<double>> getSolarData(String token) async{
   double lat,lng;
   Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
   lat=position.latitude;
@@ -146,8 +153,10 @@ void getSolarData(String token) async{
 
   try{
     final response=await http.post(_uri,body: requestUtf8, headers: {"content-type": "application/json", "Authorization": "Bearer ${token}"});
-    print(response.body);
-    //日射量をこねこね
+    Map<String,dynamic> map=jsonDecode(response.body);
+    final ret=<double>[map['data'][6]['solarRadiation'],map['data'][10]['solarRadiation']];
+    print(ret);
+    return ret;
   }catch(error){
     throw Exception(error.toString());
   }
