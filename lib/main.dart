@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'footer.dart';
+import 'chat.dart';
 import 'appbar.dart';
 
 void main() {
@@ -40,7 +42,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-
+            Chat(),
+            Footer(),
           ],
         ),
       ),
