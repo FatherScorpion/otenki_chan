@@ -18,7 +18,7 @@ class OtenkiAppbar extends StatefulWidget with PreferredSizeWidget {
   State<OtenkiAppbar> createState() => _OtenkiAppbar();
 
   @override
-  Size get preferredSize => const Size.fromHeight(160);
+  Size get preferredSize => const Size.fromHeight(162);
 }
 
 class _OtenkiAppbar extends State<OtenkiAppbar> {
