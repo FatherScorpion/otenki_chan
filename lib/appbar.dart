@@ -206,7 +206,7 @@ class _OtenkiAppbar extends State<OtenkiAppbar> {
                         width: 3
                       )
                   ),
-                  child: const Text('「天気を\n教えて！」\nと尋ねる', style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold)),
+                  child: const Text('天気を\n聞く', style: TextStyle(fontSize: 29, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
                 ),
               ),
               Container(
