@@ -74,7 +74,7 @@ class _Chat extends State<Chat> {
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          _favIcons[log['favRate']],
+          _favIcons[log['favRate'].round()],
           Flexible(
             child: Container(
               margin: const EdgeInsets.all(5),
