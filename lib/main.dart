@@ -228,7 +228,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void addOpponentChatLog(List<double> tmp, List<double> pre, List<double> slr){
     String text="hoge";
-    if(favRate<1.0){ //好感度低 気温をざっくり
+    if(favRate.round() == 0){ //好感度低 気温をざっくり
       if(tmp[0]<15){
         text="今は...まあ寒いんじゃない？\n";
       }else if(tmp[0]<=25){
@@ -243,7 +243,7 @@ class _MyHomePageState extends State<MyHomePage> {
       }else{
         text+="2時間後は...暑そう...。";
       }
-    }else if(favRate<2.0){ //好感度普通 気温と降水量
+    }else if(favRate.round() == 1){ //好感度普通 気温と降水量
       text="今の気温は"+tmp[0].toStringAsFixed(1)+"度だよ。\nちなみに降水量は"+pre[0].toStringAsFixed(1)+"mmだね。\n";
       if(tmp[0]<15){
         text+="寒いね...。\n";
