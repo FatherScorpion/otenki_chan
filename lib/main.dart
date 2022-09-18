@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import 'token.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -256,9 +257,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<String> getSanCheckToken() async{
-    var serverURL="https://api.ce-cotoha.com/v1/oauth/accesstokens";
+    var serverURL=tokens.AccessTokenPublishURL;
     Uri _uri=Uri.parse(serverURL);
-    String query= '{"grantType": "client_credentials","clientId": "MxrAblUNeiaq1SOK1pJDFjFxvDKLB0pO","clientSecret": "kwsGBzDgoxXbH6uE"}';
+    String query= '{"grantType": "client_credentials","clientId": "${tokens.clientId}","clientSecret": "${tokens.clientSecret}"}';
     final requestUtf8 = utf8.encode(query);
 
     try{
@@ -273,7 +274,7 @@ class _MyHomePageState extends State<MyHomePage> {
     var token=await getSanCheckToken();
     print(token);
 
-    var serverURL="https://api.ce-cotoha.com/api/dev/nlp/v1/sentiment";
+    var serverURL=tokens.APIBaseURL+"/nlp/v1/sentiment";
     Uri _uri=Uri.parse(serverURL);
     String query= '{"sentence": "${text}"}';
     final requestUtf8 = utf8.encode(query);
