@@ -13,7 +13,7 @@ COTOHAはアクセス権の譲渡を禁止しているため、利用者個人�
 <p>申請後、libファイル直下に以下の内容で「token.dart」を作成して下さい。???は各自が取得した内容を使用して下さい。</p>
 <pre>
 <code>
-class tokens{\n
+class tokens{
     static const String clientId="???";
     static const String clientSecret="???";
     static const String AccessTokenPublishURL="???";
