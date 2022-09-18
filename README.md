@@ -5,7 +5,7 @@
 ## COTOHAについて
 
 <p>
-本アプリでは<a href="https://api.ce-cotoha.com/contents/index.html">\COTOHA API</a>の文章の感情認識APIを使用しています。<br>
+本アプリでは<a href="https://api.ce-cotoha.com/contents/index.html">COTOHA API</a>の文章の感情認識APIを使用しています。<br>
 COTOHAはアクセス権の譲渡を禁止しているため、利用者個人個人がAPIの使用申請を行う必要があります。<br>
 申請ページ：https://api.ce-cotoha.com/contents/developers/index.html
 </p>
