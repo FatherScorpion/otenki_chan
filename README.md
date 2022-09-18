@@ -10,14 +10,14 @@ COTOHAはアクセス権の譲渡を禁止しているため、利用者個人�
 申請ページ：https://api.ce-cotoha.com/contents/developers/index.html
 </p>
 
-<p>申請後、libファイル直下に以下の内容で「token.dart」を作成して下さい。???は各自が取得した内容を使用して下さい。</p>
+<p>申請後、libファイル直下に以下の内容で「token.dart」を作成して下さい。???は各自が取得したDeveloper Client id、Developer Client secretを使用して下さい。URLは各自が取得したAccess Token Publish URLとDeveloper API Base URLを使用してください。各URLの末尾に"/"は必要ありません。</p>
 <pre>
 <code>
 class tokens{
     static const String clientId="???";
     static const String clientSecret="???";
-    static const String AccessTokenPublishURL="???";
-    static const String APIBaseURL="???";
+    static const String AccessTokenPublishURL="https://Access/Token/Publish/URL";
+    static const String APIBaseURL="https://Developer/API/Base/URL";
 }
 </code>
 </pre>
