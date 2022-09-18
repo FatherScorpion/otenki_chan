@@ -292,6 +292,7 @@ Future<List<double>> getTemperatureData(String token) async{
   try{
     final response=await http.post(_uri,body: requestUtf8, headers: {"content-type": "application/json", "Authorization": "Bearer ${token}"});
     Map<String,dynamic> map=jsonDecode(response.body);
+    print(response.body);
     final ret=<double>[map['data'][6]['temperature'],map['data'][10]['temperature']];
     print(ret);
     return ret;
